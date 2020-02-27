@@ -29,7 +29,7 @@
                                 <th colspan="2" >Customer Details</th>
                             </tr>
                             <tr>
-                                <td><input type="text" name="cname" id="cname" class="form-control" placeholder="Enter Customer Name"></td>
+                                <td><input type="text" name="cname" id="cname" class="form-control name" placeholder="Enter Customer Name" onkeyup="validate1()"></td>
                             </tr>
                             <tr>
                                 <td><input type="number" name="mob" id="mob" class="form-control" placeholder="Mobile No."></td>
@@ -45,7 +45,7 @@
                         <div class="col-lg-6">
                     <div class="form-group">
                         <form>
-                            <table class="table table-borderless" id="">
+                            <table class="table table-borderless">
                                 <tr>
                                     <th colspan="2">Address</th>
                                 </tr>
@@ -68,81 +68,143 @@
                     </div>  
                     <hr />
                     <form name="add_name" id="add_name">
-                        <table class="table table-borderless" id="dynamic_field">
+                        <table class="table table-borderless" id="tab_logic">
                             <tr>
-                                <th>Item Discription </th>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>   
                             </tr>
-                            <tr count='1'>
-                                <td><input type="text" name="name" id="name" class="form-control name-list" placeholder="Enter Product"></td>
-                                <td><input type="text" name="qty" count="1" id="qty_1" class="form-control name-list qty" placeholder="Quantity"></td>
-                                <td><input type="text" name="price" count="1" id="price_1" class="form-control name-list price" placeholder="Price"></td>
-                                <td><input type="text" name="stotal" id="stotal_1" class="form-control name-list subtotal" placeholder="Sub Total"></td>
-                                <td><button type="button" name="add" id="add" class="btn btn-success">+</button></td>
+                            <tr id="addr0">
+                                <td>1</td>
+                                <td><input type="text" name="pname[]" id="pname" class="form-control name-list" placeholder="Enter Product" ></td>
+                                <td><input type="text" name="qty[]"  id="qty" class="form-control name-list qty" placeholder="Quantity"></td>
+                                <td><input type="text" name="price[]" id="price" class="form-control name-list price" placeholder="Price"></td>
+                                <td><input type="text" name="total[]" id="total" class="form-control name-list total" placeholder="Total"></td>
+                                <td><button type="button" name="delete_row" id="delete_row" class="btn btn-danger">X</button></td>
                             </tr>
                         </table>
-                        <input type="text" name="final_amount" id="final_amount" class="form-control" placeholder="Final Total"/>
-                        <input type="submit" id="submit" name="submit" value="submit" class="btn btn-primary" />
+                        <table class="table table-borderless" id="tab_logic1"> 
+                          <tr>
+                              <td><p id="para1"></p></td>
+                              <td> <button type="button" name="add_row" id="add_row" class="btn btn-success">Add Products</button></td>
+                              <td><p id="para2"></p></td>
+                              <th style="text-align: right">Sub Total:</th>
+                              <td><input type="text" name="sub_total" id="sub_total" class="form-control" placeholder="Sub Total"/></td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td> </td>
+                              <td></td>
+                              <th style="text-align: right">Tax:</th>
+                              <td><input type="text" name="tax[]" id="tax" class="form-control tax" placeholder="Tax %"/></td>
+                              <td></td>
+                          </tr>
+                          <tr>
+                              <td></td>
+                              <td> </td>
+                              <td></td>
+                              <th style="text-align: right">Grand Total:</th>
+                              <td><input type="text" name="grand_total" id="grand_total" class="form-control" placeholder="Grand Total"/></td>
+                              <td></td>
+                          </tr>
+                        </table>
+                    
                     </div> 
+                    
             </div>
             
         </div>
           <!-- /.col-md-6 -->
           
         </div>
-       
         <!-- /.row -->
         </div>
-      </div><!-- /.container-fluid -->
+      <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   
   <script>
-$(document).ready(function(){
-	var i=1;
-	$('#add').click(function(){
-		i++;
-		$('#dynamic_field').append(
-            '<tr id="row'+i+'"><td><input type="text" name="name[]" placeholder="Enter Product" class="form-control name_list" /></td> <td><input type="text" name="quantity[]" count="'+i+'" id="qty_'+i+'" class="form-control name-list qty" placeholder="Quantity"></td><td><input type="text" name="price[]" count="'+i+'" id="price_'+i+'" class="form-control name-list price" placeholder="Price"></td> <td><input type="text" name="Stotal" count="'+i+'" id="stotal_'+i+'" class="form-control name-list" placeholder="Sub Total"></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');
-	});
-	
-	$(document).on('click', '.btn_remove', function(){
-		var button_id = $(this).attr("id"); 
-		$('#row'+button_id+'').remove();
-	});
-	$('.qty').on('keyup',function(){
-        var count=$(this).attr("count");
-        calculate_amount(count);
+  $(document).ready(function(){
+      var i=1;
+      $("#add_row").click(function(){
+        b=i-1;
+        $('#tab_logic').append(
+            // $('#addr0').html()
+            `<tr id="addr${i}">
+                <td>`+(i+1)+`</td>
+                <td><input type="text" name="pname[]" id="pname" class="form-control name-list" placeholder="Enter Product"></td>
+                <td><input type="text" name="qty[]"  id="qty" class="form-control name-list qty" placeholder="Quantity"></td>
+                <td><input type="text" name="price[]" id="price" class="form-control name-list price" placeholder="Price"></td>
+                <td><input type="text" name="total[]" id="total" class="form-control name-list total" placeholder="Total"></td>
+                <td><button type="button" name="delete_row" id="delete_row" class="btn btn-danger">X</button></td>
+            </tr>`
+            );
+          // $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+          i++; 
+          calc();
+      });
+    $(document).on("click","#delete_row",function() {
+      var button_id = $(this).parent().parent().attr("id"); 
+		  $('#'+button_id+'').remove();
+      calc();
     });
-    $('.price').on('keyup',function(){
-        var count=$(this).attr("count");
-        calculate_amount(count);
+    
+    $('#tab_logic,#tab_logic1 ').on('keyup change',function(){
+      calc();
     });
-	$('#submit').click(function(){		
-		$.ajax({
-			url:"name.php",
-			method:"POST",
-			data:$('#add_name').serialize(),
-			success:function(data)
-			{
-				alert(data);
-				$('#add_name')[0].reset();
-			}
-		});
-	});
-	
-});
-function calculate_amount(count){
-var qty=1;
-var price=0;
-var finaltotal=0;
-qty= $('#qty_'+count).val();
-price= $('#price_'+count).val();
-finaltotal=parseInt(qty)*parseFloat(price);
-$('#stotal_'+count).val(finaltotal);
-console.log(price);
-}
+  });
+
+  function calc()
+  {
+    $('#tab_logic tr').each(function(i, element) {
+      var html = $(this).html();
+      if(html!='')
+      {
+        var qty = $(this).find('.qty').val();
+        var price = $(this).find('.price').val();
+        $(this).find('.total').val(qty*price);
+        calc_total();
+      }
+      });
+  }
+  function calc_total()
+  {
+    var total=0;
+    var srno=0;
+    var grand_total=0;
+    $('.total').each(function() {
+          total += parseInt($(this).val());
+      });
+    $('#tab_logic tbody tr').each(function() {
+      $(this).find('td:first').text(srno++);
+      });
+    $('#sub_total').val(total.toFixed(2));
+    var tax = $('.tax').val();
+    tax= (total*tax)/100;
+    grand_total =tax+total;
+    $('#grand_total').val(grand_total.toFixed(2));
+  }
+  function validate1()
+	{
+    var uname = $(this).find('.qty').val();
+	 uname=document.getElementById('cname').value;
+	 var letters = /^[A-Za-z]+$/;
+	 if(uname.match(letters))
+	 {
+    document.getElementById('para1').innerHTML="Name is valid";
+    document.getElementById('para2').innerHTML="";
+	 }
+	 else 
+	 {
+	 	document.getElementById('para2').innerHTML="Name is Invalid";
+     document.getElementById('para1').innerHTML="";
+	 }
+	}
 </script>
 
  
