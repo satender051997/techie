@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Invoice Generator</h1>
+           <h1 class="m-0 text-dark">Invoice Id #00<?php echo $id_row;?></h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -20,100 +20,104 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
+              <?php echo form_open('Invoices/new_invoice');?>
                 <div class="row">
                 <div class="col-lg-6">
                  <div class="form-group">
-                    <form>
-                        <table class="table table-borderless" id="">
+                        <table class="table table-borderless table_detail">
                             <tr>
-                                <th colspan="2" >Customer Details</th>
+                                <thead class="thead-dark"><th colspan="2" >Customer Details </thead>
                             </tr>
                             <tr>
-                                <td><input type="text" name="cname" id="cname" class="form-control name" placeholder="Enter Customer Name" onkeyup="validate1()"></td>
+                                <td><input type="text" name="cname" id="cname" class="form-control name" placeholder="Enter Customer Name" pattern="[A-Za-z]{1,32}" required/></td>
                             </tr>
                             <tr>
-                                <td><input type="number" name="mob" id="mob" class="form-control" placeholder="Mobile No."></td>
+                                <td><input type="text" name="mob" id="mob" class="form-control" placeholder="Mobile No." pattern="[0-9]{10}" required/></td>
                             </tr>
                             <tr>
-                                <td><input type="email" name="email" id="email" class="form-control" placeholder="Email"></td>
+                                <td><input type="email" name="email" id="email" class="form-control" placeholder="Email" required/></td>
                             </tr>
                             </table>
-                    </form>
-                  
+                   
                     </div>
                     </div>
                         <div class="col-lg-6">
                     <div class="form-group">
-                        <form>
+                     
                             <table class="table table-borderless">
                                 <tr>
-                                    <th colspan="2">Address</th>
+                                <thead class="thead-dark"><th colspan="2">Address</th></thead>
                                 </tr>
                                 <tr>
-                                    <td th colspan="2"><input type="text" name="house" id="house" class="form-control" placeholder="House No./Name"></td>
+                                    <td th colspan="2"><input type="text" name="house" id="house" class="form-control" placeholder="House No./Name" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" name="street" id="street" class="form-control" placeholder="Street"></td>
-                                    <td><input type="text" name="pin" id="pin" class="form-control" placeholder="Postal Code"></td>
+                                    <td><input type="text" name="street" id="street" class="form-control" placeholder="Street" required/></td>
+                                    <td><input type="number" name="pin" id="pin" class="form-control" placeholder="Postal Code" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" name="town" id="town" class="form-control" placeholder="Town"></td>
-                                    <td><input type="text" name="country" id="country" class="form-control" placeholder="Country"></td>
+                                    <td><input type="text" name="town" id="town" class="form-control" placeholder="Town" required/></td>
+                                    <td><input type="text" name="country" id="country" class="form-control" placeholder="Country" required/></td>
                                 </tr>
                                 </table>
-                        </form>
-                       
+                         
                         </div>
                         </div>
                     </div>  
                     <hr />
-                    <form name="add_name" id="add_name">
                         <table class="table table-borderless" id="tab_logic">
                             <tr>
+                                <thead class="thead-dark">
                                 <th>#</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
                                 <th>Price</th>
-                                <th>Total</th>   
+                                <th>Total</th>
+                                <th></th>
+                                </thead>   
                             </tr>
                             <tr id="addr0">
                                 <td>1</td>
                                 <td><input type="text" name="pname[]" id="pname" class="form-control name-list" placeholder="Enter Product" ></td>
-                                <td><input type="text" name="qty[]"  id="qty" class="form-control name-list qty" placeholder="Quantity"></td>
-                                <td><input type="text" name="price[]" id="price" class="form-control name-list price" placeholder="Price"></td>
+                                <td><input type="number" name="qty[]"  id="qty" class="form-control name-list qty" placeholder="Quantity"></td>
+                                <td><input type="number" name="price[]" id="price" class="form-control name-list price" placeholder="Price"></td>
                                 <td><input type="text" name="total[]" id="total" class="form-control name-list total" placeholder="Total"></td>
                                 <td><button type="button" name="delete_row" id="delete_row" class="btn btn-danger">X</button></td>
                             </tr>
                         </table>
-                        <table class="table table-borderless" id="tab_logic1"> 
-                          <tr>
-                              <td><p id="para1"></p></td>
-                              <td> <button type="button" name="add_row" id="add_row" class="btn btn-success">Add Products</button></td>
-                              <td><p id="para2"></p></td>
-                              <th style="text-align: right">Sub Total:</th>
-                              <td><input type="text" name="sub_total" id="sub_total" class="form-control" placeholder="Sub Total"/></td>
-                              <td></td>
-                          </tr>
-                          <tr>
-                              <td></td>
-                              <td> </td>
-                              <td></td>
-                              <th style="text-align: right">Tax:</th>
-                              <td><input type="text" name="tax[]" id="tax" class="form-control tax" placeholder="Tax %"/></td>
-                              <td></td>
-                          </tr>
-                          <tr>
-                              <td></td>
-                              <td> </td>
-                              <td></td>
-                              <th style="text-align: right">Grand Total:</th>
-                              <td><input type="text" name="grand_total" id="grand_total" class="form-control" placeholder="Grand Total"/></td>
-                              <td></td>
-                          </tr>
-                        </table>
+                   
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <button type="button" name="add_row" id="add_row" class="btn btn-success btn1 btn-block">Add Products</button>
+                            </div>
+                            <div class="col-md-4 offset-md-6 ">
+                                  <table class="pull-right" id="tab_logic1"> 
+                                    <tr>
+                                        <th style="text-align: left">Sub Total:</th>
+                                        <td><input type="text" name="sub_total" id="sub_total" class="form-control form-group" placeholder="Sub Total"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: left">Tax:</th>
+                                        <td><input type="text" name="tax" id="tax" class="form-control  form-group tax" placeholder="Tax %"/>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: left">Grand Total:</th>
+                                        <td><input type="text" name="grand_total" id="grand_total" class="form-control  form-group"" placeholder="Grand Total"/></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                      <td></td>
+                                      <td><button type="submit" name="generate_bill" id="generate_bill" class="btn btn-primary btn-block">Generate Bill</button></td>
+                                    </tr>
+                                  </table>
+                            </div>
+                          </div>
+                        </div>
+                      
                     
                     </div> 
-                    
+                    <?php  echo form_close();    ?>   
             </div>
             
         </div>
@@ -189,22 +193,7 @@
     grand_total =tax+total;
     $('#grand_total').val(grand_total.toFixed(2));
   }
-  function validate1()
-	{
-    var uname = $(this).find('.qty').val();
-	 uname=document.getElementById('cname').value;
-	 var letters = /^[A-Za-z]+$/;
-	 if(uname.match(letters))
-	 {
-    document.getElementById('para1').innerHTML="Name is valid";
-    document.getElementById('para2').innerHTML="";
-	 }
-	 else 
-	 {
-	 	document.getElementById('para2').innerHTML="Name is Invalid";
-     document.getElementById('para1').innerHTML="";
-	 }
-	}
 </script>
+
 
  

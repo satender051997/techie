@@ -13,13 +13,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
+   <!-- Invoice credentials css-->
+   <link rel="stylesheet" href="<?php echo base_url('assets/css/invoice.css');?>">
+   <!-- Invoice time set-->
+   <script src="<?php echo base_url('assets/js/time.js');?>"></script>
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/adminlte.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/adminlte.min.css');?>">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-<body class="hold-transition sidebar-mini">
+<body onload="startTime()" class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -51,9 +55,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-            class="fas fa-th-large"></i></a>
+    <li class="nav-item d-none d-sm-inline-block">
+      <a href="#" class="nav-link" id="show_time"></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+      <a href="#" class="nav-link" id="show_date"></a>
       </li>
     </ul>
   </nav>
