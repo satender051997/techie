@@ -1,0 +1,18 @@
+.btn1{
+    position: absolute;
+    left: 100px;
+    top: 165px;
+  } 
+
+  .error_msg{
+    color: red;
+    
+  }
+
+  input:focus {
+    background-color: yellow;
+  }
+
+  .fa-eye{
+    color:red;
+  }

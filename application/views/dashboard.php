@@ -1,0 +1,1 @@
+<h1>Welcome Mr.<?php echo $this->aauth->get_user()->username ?></h1>
